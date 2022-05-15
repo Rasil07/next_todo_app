@@ -1,20 +1,50 @@
-import { NextPage } from 'next'
-import React from 'react'
-import { useQuery } from 'react-query'
+import { NextPage } from "next";
+import React from "react";
+import { useQuery } from "react-query";
+import { fetchTodos } from "../../api/todos";
+import { TodoListInterface } from "../../../constants/type";
 
-import { fetchTodos } from '../../api/todos'
+const Index: NextPage = () => {
+  const {
+    data,
+    error,
+    isLoading,
+    isError,
+  }: {
+    data: TodoListInterface;
+    error: any;
+    isLoading: boolean;
+    isError: boolean;
+  } = useQuery("list_todos", fetchTodos);
+  if (isLoading) {
+    return (
+      <div>
+        <h3>Loading...</h3>
+      </div>
+    );
+  }
 
-
-const Index:NextPage = ()=> {
- const {data,error,isLoading , isError }= useQuery('list_todos',fetchTodos)
- if(isLoading){return <div>
-   <h3>Loading...</h3>
- </div>}
-
+  if (isError) {
+    return (
+      <div>
+        <h3>{error?.message}</h3>
+      </div>
+    );
+  }
 
   return (
-    <div> List </div>
-  )
-}
+    <div>
+      {" "}
+      {data?.length > 0 &&
+        data.map((todo) => (
+          <div key={todo.id}>
+            <h3>{todo.name}</h3>
 
-export default Index 
+            <p>{todo.description}</p>
+          </div>
+        ))}{" "}
+    </div>
+  );
+};
+
+export default Index;
