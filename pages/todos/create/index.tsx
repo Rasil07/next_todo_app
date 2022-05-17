@@ -20,7 +20,6 @@ const Index: React.FC = () => {
 
       const formData = new FormData(e.target);
 
-      console.log(formData.get("name"));
       const payload = {
         name: formData.get("name"),
         description: formData.get("description"),

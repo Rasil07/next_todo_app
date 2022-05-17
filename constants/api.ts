@@ -7,7 +7,7 @@ export const API = {
     CREATE: TODOS,
     GET_BY_ID: (id: string): string => `${TODOS}/${id}`,
     LIST: TODOS,
-    UPDATE: (id: string): string => API.TODO.GET_BY_ID(id),
-    DELETE: (id: string): string => API.TODO.GET_BY_ID(id),
+    UPDATE: (id: string): string => `${TODOS}/${id}`,
+    DELETE: (id: string): string => `${TODOS}/${id}`,
   },
 };
